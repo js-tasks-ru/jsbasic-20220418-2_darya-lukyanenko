@@ -3,11 +3,9 @@ import createElement from '../../assets/lib/create-element.js';
 export default class StepSlider {
   constructor({ steps, value = 0 }) {
     let slider = createElement(`<div class="slider">
-    <!--Ползунок слайдера с активным значением-->
     <div class="slider__thumb" style="left: 50%;">
       <span class="slider__value">${value}</span>
     </div>
-    <!--Заполненная часть слайдера-->
     <div class="slider__progress" style="width: 50%;"></div>
   </div>`);
 
@@ -22,8 +20,6 @@ export default class StepSlider {
     let thumb = slider.querySelector('.slider__thumb');
     let spanValue = thumb.querySelector('.slider__value');
     let progress = slider.querySelector('.slider__progress');
-
-
 
     thumb.style.left = `${value}%`;
     progress.style.width = `${value / (steps - 1) * 100}%`;
