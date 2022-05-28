@@ -29,6 +29,8 @@ export default class Modal {
         this.close();
       }
     });
+
+    this.elem = modal;
   }
 
   open() {
@@ -53,7 +55,7 @@ export default class Modal {
         this.close();
       }
     });
-    document.body.innerHTML = '';
+    this.elem.remove();
   }
-
+ 
 }
