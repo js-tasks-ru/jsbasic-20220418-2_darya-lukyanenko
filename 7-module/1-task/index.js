@@ -15,6 +15,7 @@ export default class RibbonMenu {
   constructor(categories) {
     this.categories = categories;
     this.render();
+    this.value = categories[0].id;
   }
  
   render() {
