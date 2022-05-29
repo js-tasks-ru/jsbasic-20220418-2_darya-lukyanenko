@@ -1,42 +1,44 @@
-function showArrow(number, maxNumber, arrows) {
-  switch (number) {
-    case 1:
-      arrows[1].style.display = 'none';
-      break;
-    case maxNumber:
-      arrows[0].style.display = 'none';
-      break;
-    default:
-      arrows.forEach((arrow) => {
-        arrow.style.display = '';
-      });
-  }
+function arrowsDisplay(numberSlide, lastSlideIndex){
+   const leftArrow = document.querySelector('.carousel__arrow_left');
+   const rightArrow = document.querySelector('.carousel__arrow_right');
+
+   switch (numberSlide) {
+     case 0:
+       leftArrow.style.display = 'none';
+       break;
+     case lastSlideIndex:
+       rightArrow.style.display = 'none';
+       break;
+     default:
+      leftArrow.style.display = '';
+      rightArrow.style.display = '';
+   }
 }
 
 function initCarousel() {
-  const carouselInner = document.querySelector('.carousel .carousel__inner');
-  const carouselArrow = document.querySelectorAll('.carousel .carousel__arrow');
+   const carouselInner = document.querySelector('.carousel__inner');
+   const leftArrow = document.querySelector('.carousel__arrow_left');
+   const rightArrow = document.querySelector('.carousel__arrow_right');
+  
+   const slideWidth = carouselInner.offsetWidth;
+   const lastSlideIndex = document.querySelectorAll('.carousel__slide').length - 1;
 
-  const carouselWidth = carouselInner.offsetWidth;
-  const maxSlideNumber = document.querySelectorAll('.carousel .carousel__slide').length;
+   let numberSlide = 0;
+   let slideTranslateSize = 0;
+   
+   arrowsDisplay(numberSlide, lastSlideIndex);
 
-  let slideNumber = 1;
-  let sizeCarousel = 0;
+   leftArrow.addEventListener('click', () => {
+    slideTranslateSize += slideWidth;
+    numberSlide -= 1;
+    arrowsDisplay(numberSlide, lastSlideIndex);
+    carouselInner.style.transform = `translateX(${slideTranslateSize}px)`;
+   }); 
 
-  carouselArrow.forEach((arrow) => {
-    arrow.addEventListener('click', () => {
-      if (arrow.classList.contains('carousel__arrow_right')) {
-        sizeCarousel -= carouselWidth;
-        slideNumber += 1;
-      } else {
-        sizeCarousel += carouselWidth;
-        slideNumber -= 1;
-      }
-
-      carouselInner.style.transform = `translateX(${sizeCarousel}px)`;
-      showArrow(slideNumber, maxSlideNumber, carouselArrow);
-    });
-  });
-
-  showArrow(slideNumber, maxSlideNumber, carouselArrow);
+   rightArrow.addEventListener('click', () => {
+    slideTranslateSize -= slideWidth;
+    numberSlide += 1;
+    arrowsDisplay(numberSlide, lastSlideIndex);
+    carouselInner.style.transform = `translateX(${slideTranslateSize}px)`;
+   });
 }
